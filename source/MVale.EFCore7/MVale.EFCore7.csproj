@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFrameworks>net6.0; net7.0</TargetFrameworks>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Compile Include="../MVale.EFCore3/**/*.cs" Link="%(RecursiveDir)%(Filename)%(Extension)"/>
+        <Compile Remove="../MVale.EFCore3/bin/**"/>
+        <Compile Remove="../MVale.EFCore3/obj/**"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.*" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.*">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.*" />
+        <PackageReference Include="System.CommandLine" Version="2.*-*" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <InternalsVisibleTo Include="$(AssemblyName).Test" />
+    </ItemGroup>
+
+</Project>

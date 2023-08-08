@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <!--<TargetFrameworks>netstandard2.0; netcoreapp3.1</TargetFrameworks>-->
+        <LangVersion>8.0</LangVersion>
+        <Version>1.1.0.0</Version>
+    </PropertyGroup>
+
+    <!-- Package -->
+    <PropertyGroup>
+        <!--<EnablePackageValidation>true</EnablePackageValidation>
+        <PackageValidationBaselineVersion>1.0.0</PackageValidationBaselineVersion>-->
+    </PropertyGroup>
+
+    <ItemGroup>
+        <InternalsVisibleTo Include="$(AssemblyName).Test" />
+        <InternalsVisibleTo Include="$(AssemblyName).Benchmark" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.CSharp" Version="*" />
+        <PackageReference Include="System.Collections.Immutable" Version="5.*" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\MVale.Core/MVale.Core.csproj" />
+    </ItemGroup>
+
+</Project>

@@ -1,0 +1,18 @@
+<Project>
+    <PropertyGroup>
+        <Authors>M. Vale</Authors>
+        <Company>--</Company>
+        <Description>$(AssemblyName) - $(Version) - $([System.DateTime]::Now.ToString(o))</Description>
+
+        <!--
+        <AssemblyFileVersion></AssemblyFileVersion>
+        <AssemblyInformationalVersion></AssemblyInformationalVersion>
+        <AssemblyVersion></AssemblyVersion>
+        -->
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <NoWarn>$(NoWarn);1591</NoWarn>
+    </PropertyGroup>
+</Project>
