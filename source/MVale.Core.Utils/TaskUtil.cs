@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
@@ -51,7 +52,8 @@ namespace MVale.Core.Utils
             return TaskResultTypes.GetValue(taskType, FindTaskResultType);
         }
 
-        public static Task<TResult> GetResult<TValue, TResult>(Task<TValue> task)
+        [return: NotNullIfNotNull(nameof(task))]
+        public static Task<TResult>? GetResult<TValue, TResult>(Task<TValue>? task)
         {
             if (task == null)
                 return null;
@@ -59,7 +61,8 @@ namespace MVale.Core.Utils
             return InternalGetResult<TValue, TResult>(task);
         }
         
-        public static Task<T> GetResult<T>(Task task)
+        [return: NotNullIfNotNull(nameof(task))]
+        public static Task<T>? GetResult<T>(Task? task)
         {
             if (task == null)
                 return null;

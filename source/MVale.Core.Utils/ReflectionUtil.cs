@@ -53,7 +53,7 @@ namespace MVale.Core.Utils
         /// The default value or <see langword="null"/>
         /// if <paramref name="type"/> is a reference type.</returns>
         /// <exception cref="ArgumentNullException">If <paramref name="type"/> is <see langword="null"/>.</exception>
-        public static object GetDefaultValue(Type type)
+        public static object? GetDefaultValue(Type type)
         {
             if (type == null)
                 throw new ArgumentNullException(nameof(type));

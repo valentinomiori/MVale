@@ -229,8 +229,7 @@ namespace MVale.Core.Utils
             if (bytes == null)
                 throw new ArgumentNullException(nameof(bytes));
 
-            StringBuilder sb = null;
-            
+            StringBuilder sb;
             if (bytes is IReadOnlyCollection<byte> collection)
             {
                 sb = new StringBuilder(collection.Count * 2);

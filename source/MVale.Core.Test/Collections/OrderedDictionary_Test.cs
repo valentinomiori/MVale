@@ -79,11 +79,11 @@ namespace MVale.Core.Test.Collections
             var od = new Core.Collections.OrderedDictionary<float, string>(
                 TestDictionary,
                 Core.Collections.Comparers.RoundedFloatEqualityComparer.HalfToEven);
-
+#pragma warning disable SYSLIB0011
             System.Runtime.Serialization.IFormatter formatter
                 = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
             System.IO.Stream s = new System.IO.MemoryStream();
-
+#pragma warning restore
             formatter.Serialize(s, od);
 
             s.Seek(0, System.IO.SeekOrigin.Begin);

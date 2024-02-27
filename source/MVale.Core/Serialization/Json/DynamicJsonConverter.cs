@@ -8,40 +8,40 @@ namespace MVale.Core.Serialization.Json
 {
     public sealed class DynamicJsonConverter : JsonConverter<object>
     {
-        public Type Type { get; }
+        public Type BaseType { get; }
 
         public ImmutableList<Type> DerivedTypes { get; }
 
         public DynamicJsonConverter(
-            Type type,
+            Type baseType,
             ImmutableList<Type> derivedTypes)
         {
-            if (type == null)
-                throw new ArgumentNullException(nameof(type));
+            if (baseType == null)
+                throw new ArgumentNullException(nameof(baseType));
 
             if (derivedTypes != null)
             {
                 foreach (var t in derivedTypes)
                 {
-                    if (!type.IsAssignableFrom(t))
+                    if (!baseType.IsAssignableFrom(t))
                         throw new ArgumentException(
-                            $"The type {t} is not assignable to type {type}.",
+                            $"The type '{t}' is not assignable to type '{baseType}'.",
                             nameof(derivedTypes));
                 }
             }
 
-            Type = type;
+            BaseType = baseType;
             DerivedTypes = derivedTypes;
         }
         
         public override bool CanConvert(Type typeToConvert)
         {
-            return this.Type.IsAssignableFrom(typeToConvert);
+            return this.BaseType.IsAssignableFrom(typeToConvert);
         }
 
         public override object Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
-            return JsonSerializer.Deserialize(ref reader, this.Type, options);
+            return JsonSerializer.Deserialize(ref reader, this.BaseType, options);
         }
 
         public override void Write(Utf8JsonWriter writer, object value, JsonSerializerOptions options)

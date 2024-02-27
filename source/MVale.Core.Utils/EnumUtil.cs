@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace MVale.Core.Utils
@@ -11,7 +12,7 @@ namespace MVale.Core.Utils
     public static class EnumUtil
     {
         [System.Diagnostics.DebuggerStepThrough]
-        internal static void ThrowIfInvalid(Type type, string paramName = null)
+        internal static void ThrowIfInvalid(Type type, string? paramName = null)
         {
             paramName ??= nameof(type);
 
@@ -72,6 +73,27 @@ namespace MVale.Core.Utils
             return InternalGetNamedValues(type);
         }
 
+        [return: NotNullIfNotNull(nameof(value))]
+        public static System.Reflection.FieldInfo? GetField(Enum? value)
+        {
+            if (value == null)
+                return null;
+
+            var type = value.GetType();
+
+            if (Enum.IsDefined(type, value))
+            {
+                var field = type.GetField(value.ToString());
+
+                if (field != null)
+                    return field;
+            }
+
+            return type.GetFields()
+            .Where(f => f.IsLiteral && f.FieldType == type)
+            .First(f => object.Equals(f.GetRawConstantValue(), value));
+        }
+        
         /// <inheritdoc cref="GetNamedValues(Type)"/>
         /// <typeparam name="T">A type representing o subclass of <see cref="Enum"/>.</typeparam>
         public static IEnumerable<KeyValuePair<string, T>> GetNamedValues<T>()
@@ -112,7 +134,8 @@ namespace MVale.Core.Utils
         /// <param name="object">The enum value, or <see langword="null"/>.</param>
         /// <returns><inheritdoc cref="GetUnderlyingValue(Enum)"/></returns>
         /// <exception cref="ArgumentException">If <paramref name="object"/> is not an instance of <see cref="Enum"/>.</exception>
-        public static object GetUnderlyingValue(object @object)
+        [return: NotNullIfNotNull(nameof(@object))]
+        public static object? GetUnderlyingValue(object? @object)
         {
             if (@object == null)
                 return null;
@@ -130,7 +153,8 @@ namespace MVale.Core.Utils
         /// </summary>
         /// <param name="enum">The enum value, or <see langword="null"/>.</param>
         /// <returns>The underlying integer value, or <see langword="null"/> if <paramref name="enum"/> is <see langword="null"/>.</returns>
-        public static object GetUnderlyingValue(Enum @enum)
+        [return: NotNullIfNotNull(nameof(@enum))]
+        public static object? GetUnderlyingValue(Enum? @enum)
         {
             if (@enum == null)
                 return null;

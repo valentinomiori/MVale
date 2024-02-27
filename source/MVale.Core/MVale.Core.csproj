@@ -2,9 +2,10 @@
 
     <PropertyGroup>
         <!--<TargetFramework>netstandard2.0</TargetFramework>-->
-        <TargetFrameworks>netstandard2.0; netcoreapp3.1</TargetFrameworks>
-        <LangVersion>8.0</LangVersion>
-        <Version>1.0.0.0</Version>
+        <TargetFrameworks>netstandard2.0; net6.0; net8.0</TargetFrameworks>
+        <LangVersion>10.0</LangVersion>
+        <Version>1.1.0.0</Version>
+        <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
     </PropertyGroup>
 
     <!-- Package -->
@@ -14,7 +15,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.CSharp" Version="4.7.*" />
+        <PackageReference Condition="'$(TargetFramework)' == 'netstandard2.0'" Include="Microsoft.CSharp" Version="*" />
     </ItemGroup>
 
     <ItemGroup>
